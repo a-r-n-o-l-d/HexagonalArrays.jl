@@ -50,7 +50,7 @@ function to_cartesian(I::HexagonalIndex, d_unit) #to_cartesian(I::HexagonalIndex
     x, y
 end
 
-function euclidean(I1::HexagonalIndex, I2::HexagonalIndex, d_unit) # à vérifier
+function euclidean(I1::HexagonalIndex, I2::HexagonalIndex, d_unit)
     i1, j1, k1 = indices(I1)
     i2, j2, k2 = indices(I2)
     k = (k1 - k2) / 2
