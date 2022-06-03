@@ -5,4 +5,7 @@
         push!(d, euclidean(N, HexagonalIndex(0, 0, 1), 1))
     end
     @test all(@. d <= radius)
+    @test length(d) == hexcount(radius)
+
+    
 end
