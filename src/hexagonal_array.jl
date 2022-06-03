@@ -18,6 +18,14 @@ Base.@propagate_inbounds Base.getindex(H::HexagonalArray, idxs::Int...) = H.data
 
 Base.@propagate_inbounds Base.setindex!(H::HexagonalArray, v, idxs::Int...) = (H.data[idxs...] = v)
 
+hexzeros(T::Type, nrow, ncol, d_unit) = HexagonalArray(zeros(T, nrow, ncol, 2), d_unit)
+
+hexzeros(nrow, ncol, d_unit) = HexagonalArray(zeros(Float64, nrow, ncol, 2), d_unit)
+
+hexones(T::Type, nrow, ncol, d_unit) = HexagonalArray(ones(T, nrow, ncol, 2), d_unit)
+
+hexones(nrow, ncol, d_unit) = HexagonalArray(ones(Float64, nrow, ncol, 2), d_unit)
+
 #Base.getindex(H::HexagonalArray, i::Int) = data(H)[i]
 
 #Base.getindex(H::HexagonalArray, I::Vararg{Int,3}) = data(H)[I...]

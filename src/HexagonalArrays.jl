@@ -6,7 +6,7 @@ include("utils.jl")
 export HexagonalIndex, indices, to_cartesian, euclidean
 include("hexagonal_index.jl")
 
-export HexagonalArray
+export HexagonalArray, hexzeros, hexones
 include("hexagonal_array.jl")
 
 export @neighborhood
