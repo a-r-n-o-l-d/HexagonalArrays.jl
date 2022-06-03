@@ -41,3 +41,11 @@ function Base.:*(s::Int, I::HexagonalIndex)
 end
 
 Base.:*(I::HexagonalIndex, s::Int) = *(s::Int, I::HexagonalIndex)
+
+# Cartesian coordinates
+function to_cartesian(I::HexagonalIndex, d_unit) #to_cartesian(I::HexagonalIndex, d, nrow, ncol)
+    i, j, k = indices(I)
+    x = d_unit * sq3 * (k / 2 + j - 3 / 2) # + 1 # x - 2 * nc * d_unit
+    y = d_unit * (k / 2 + i - 3 / 2)       # + 1 # (nr * d_unit + 0.5) - y 
+    x, y
+end

@@ -1,7 +1,8 @@
 module HexagonalArrays
 
-# Write your package code here.
-export HexagonalIndex, indices, zeor, one
+include("utils.jl")
+
+export HexagonalIndex, indices, to_cartesian
 include("hexagonal_index.jl")
 
 end
