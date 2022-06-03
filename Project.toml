@@ -3,9 +3,6 @@ uuid = "e7428160-d03f-46d2-b46d-0a3a5554cbe0"
 authors = ["Arnold"]
 version = "0.1.0"
 
-[deps]
-Revise = "295af30f-e4ad-537b-8983-00126c2a3abe"
-
 [compat]
 julia = "1.7"
 
