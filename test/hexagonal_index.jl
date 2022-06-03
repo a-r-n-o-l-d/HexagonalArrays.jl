@@ -5,5 +5,7 @@
 
     @test one(HexagonalIndex) - one(HexagonalIndex) == zero(HexagonalIndex)
 
-    @test (0.0, 0.0) == to_cartesian(one(HexagonalIndex), 1)
+    @test to_cartesian(one(HexagonalIndex), 1) == (0.0, 0.0)
+
+    @test euclidean(HexagonalIndex(1,1,1), HexagonalIndex(2,1,1), 1) == 1.0
 end
