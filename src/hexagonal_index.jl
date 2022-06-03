@@ -10,8 +10,8 @@ indices(I::HexagonalIndex) = I.I
 function Base.:+(I1::HexagonalIndex, I2::HexagonalIndex)
     i1, j1, k1 = indices(I1)
     i2, j2, k2 = indices(I2)
-    k1 = Bool(I1.I[3] - 1)
-    k2 = Bool(I2.I[3] - 1)
+    k1 = Bool(k1 - 1)
+    k2 = Bool(k2 - 1)
     HexagonalIndex(i1 + i2 + (k1 && k2) - 1,
                    j1 + j2 + (k1 && k2) - 1,
                    k1 ⊻ k2 + 1)
