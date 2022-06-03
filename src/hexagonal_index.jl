@@ -7,8 +7,11 @@ HexagonalIndex(i, j, k) = HexagonalIndex((i, j, k))
 indices(I::HexagonalIndex) = I.I
 
 Base.zero(::HexagonalIndex) = HexagonalIndex(0, 0, 1)
+
 Base.zero(::Type{HexagonalIndex}) = HexagonalIndex(0, 0, 1)
+
 Base.one(::HexagonalIndex) = HexagonalIndex(1, 1, 1)
+
 Base.one(::Type{HexagonalIndex}) = HexagonalIndex(1, 1, 1)
 
 # Addition
@@ -43,7 +46,7 @@ end
 Base.:*(I::HexagonalIndex, s::Int) = *(s::Int, I::HexagonalIndex)
 
 # Cartesian coordinates
-function to_cartesian(I::HexagonalIndex, d_unit) #to_cartesian(I::HexagonalIndex, A::HexagonalArray)
+function to_cartesian(I::HexagonalIndex, d_unit) #to_cartesian(I::HexagonalIndex, H::HexagonalArray)
     i, j, k = indices(I)
     x = d_unit * sq3 * (k / 2 + j - 3 / 2) # + 1 # x - 2 * nc * d_unit
     y = d_unit * (k / 2 + i - 3 / 2)       # + 1 # (nr * d_unit + 0.5) - y 
