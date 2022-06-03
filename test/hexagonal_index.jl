@@ -1,5 +1,7 @@
 @testset "HexagonalIndex" begin
-    @test (1, 2, 2) == indices(HexagonalIndex(1, 2, 2))
+    @test (1, 1, 1) == indices(one(HexagonalIndex))
 
-    @test HexagonalIndex(1, 1, 1) + HexagonalIndex(1, 1, 1)
+    @test one(HexagonalIndex) + one(HexagonalIndex) == 2 * one(HexagonalIndex)
+
+    @test one(HexagonalIndex) - one(HexagonalIndex) == zero(HexagonalIndex)
 end
