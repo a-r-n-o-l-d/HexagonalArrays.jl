@@ -1,26 +1,25 @@
 macro neighborhood(I, radius, N, body)
-    ex = quote
-        local i, j, k = indices($I)
-        local Δj = $radius >> 1
+    quote
+        local i, j, k = indices($(esc(I)))
+        local Δj = $(esc(radius)) >> 1
         for oj in -Δj:Δj
-            local Δi = $radius - abs(oj)
+            local Δi = $(esc(radius)) - abs(oj)
             for oi in -Δi:Δi
-                $N = HexagonalIndex(i + oi, j + oj, k)
-                $body
+                $(esc(N)) = HexagonalIndex(i + oi, j + oj, k)
+                $(esc(body))
             end
         end
         local i = i + k - 2
         local j = j + k - 2
-        local Δj = ($radius + 1) >> 1
+        local Δj = ($(esc(radius)) + 1) >> 1
         for oj in -Δj + 1:Δj
-            local Δi = trunc(Int, $radius - abs(oj - 0.5) - 0.5)
+            local Δi = trunc(Int, $(esc(radius)) - abs(oj - 0.5) - 0.5)
             for oi in -Δi:Δi + 1
-                $N = HexagonalIndex(i + oi, j + oj, 3 - k)
-                $body
+                $(esc(N)) = HexagonalIndex(i + oi, j + oj, 3 - k)
+                $(esc(body))
             end
         end
     end
-    esc(ex)
 end
 
 function _neighborhood1(I::HexagonalIndex)
@@ -35,14 +34,4 @@ function _neighborhood1(I::HexagonalIndex)
     (r2,    c1, a_),
     (r1,    c2, a_),
     (r2,    c2, a_)
-end
-
-macro neighborhood(I, N, body)
-    ex = quote
-        for n in _neighborhood1($I)
-            $N = HexagonalIndex(n)
-            $body
-        end
-    end
-    esc(ex)
 end
