@@ -1,6 +1,6 @@
 module HexagonalArrays
 
-export d_unit_area
+export d_unit_area, hexagon_vertices
 include("utils.jl")
 
 export HexagonalIndex, indices, to_cartesian, euclidean

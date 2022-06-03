@@ -1,6 +1,6 @@
 macro neighborhood(I, radius, N, body)
-    quote
-        local i, j, k = index($I)
+    ex = quote
+        local i, j, k = indices($I)
         local Δj = $radius >> 1
         for oj in -Δj:Δj
             local Δi = $radius - abs(oj)
@@ -20,6 +20,7 @@ macro neighborhood(I, radius, N, body)
             end
         end
     end
+    esc(ex)
 end
 
 function _neighborhood1(I::HexagonalIndex)
@@ -37,10 +38,11 @@ function _neighborhood1(I::HexagonalIndex)
 end
 
 macro neighborhood(I, N, body)
-    quote
+    ex = quote
         for n in _neighborhood1($I)
             $N = HexagonalIndex(n)
             $body
         end
     end
+    esc(ex)
 end
