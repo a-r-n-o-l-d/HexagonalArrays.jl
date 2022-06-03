@@ -49,3 +49,10 @@ function to_cartesian(I::HexagonalIndex, d_unit) #to_cartesian(I::HexagonalIndex
     y = d_unit * (k / 2 + i - 3 / 2)       # + 1 # (nr * d_unit + 0.5) - y 
     x, y
 end
+
+function euclidean(I1::HexagonalIndex, I2::HexagonalIndex, d_unit) # à vérifier
+    i1, j1, k1 = indices(I1)
+    i2, j2, k2 = indices(I2)
+    k = (k1 - k2) / 2
+    d_unit * sq3 * sqrt((k + (j1 - j2))^2 + (k + (i1 - i2))^2)
+end
