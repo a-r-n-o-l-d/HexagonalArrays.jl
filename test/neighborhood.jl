@@ -7,5 +7,16 @@
     @test all(@. d <= radius)
     @test length(d) == hexcount(radius)
 
-    
+    function infunc(I, r)
+        d = []
+        @neighborhood I r neighbor begin 
+            push!(d, euclidean(neighbor, I, 1))
+        end
+        d
+    end
+    radius = 19
+    I = HexagonalIndex(rand(1:10), rand(1:5), rand(1:2))
+    d = infunc(I, radius)
+    @test all(@. d <= radius)
+    @test length(d) == hexcount(radius)
 end
