@@ -6,11 +6,11 @@ struct HexagonalArray{T} <: AbstractArray{T,3} #HexagonalLattice???
     # CartesianAxes
 end
 
-hexdata(H::HexagonalArray) = H.data
+hexdata(A::HexagonalArray) = A.data
 
-Base.size(H::HexagonalArray) = size(H.data)
+Base.size(A::HexagonalArray) = size(A.data)
 
-Base.@propagate_inbounds Base.getindex(H::HexagonalArray, I::HexagonalIndex) = H.data[I.I...]
+Base.@propagate_inbounds Base.getindex(A::HexagonalArray, I::HexagonalIndex) = A.data[I.I...]
 
 Base.@propagate_inbounds Base.setindex!(H::HexagonalArray, v, I::HexagonalIndex) = (H.data[I.I...] = v)
 
