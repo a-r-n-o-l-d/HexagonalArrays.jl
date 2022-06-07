@@ -9,7 +9,7 @@
 
     function infunc(I, r)
         d = []
-        @neighborhood I r neighbor begin 
+        @neighborhood I r neighbor begin
             push!(d, euclidean(neighbor, I, 1))
         end
         d
@@ -19,4 +19,11 @@
     d = infunc(I, radius)
     @test all(@. d <= radius)
     @test length(d) == hexcount(radius)
+
+    d = []
+    @neighborhood I neighbor begin
+        push!(d, euclidean(neighbor, I, 1))
+    end
+    @test all(@. d <= 1)
+    @test length(d) == hexcount(1)
 end

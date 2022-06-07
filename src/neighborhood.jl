@@ -22,7 +22,7 @@ macro neighborhood(I, radius, N, body)
     end
 end
 
-function _neighborhood1(I::HexagonalIndex)
+function _neighborhood(I::HexagonalIndex)
     r, c, a = I.I
     r1, c1 = r + a - 2, c + a - 2
     r2, c2 = r1 + 1, c1 + 1
@@ -34,4 +34,13 @@ function _neighborhood1(I::HexagonalIndex)
     (r2,    c1, a_),
     (r1,    c2, a_),
     (r2,    c2, a_)
+end
+
+macro neighborhood(I, N, body)
+    quote
+        for n in _neighborhood($(esc(I)))
+            $(esc(N)) = HexagonalIndex(n)
+            $(esc(body))
+        end
+    end
 end
