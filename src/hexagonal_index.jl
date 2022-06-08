@@ -45,7 +45,7 @@ end
 
 Base.:*(I::HexagonalIndex, s::Int) = *(s::Int, I::HexagonalIndex)
 
-# Cartesian coordinates
+# Cartesian coordinates => utils
 function to_cartesian(I::HexagonalIndex, d_unit) #to_cartesian(I::HexagonalIndex, H::HexagonalArray)
     i, j, k = indices(I)
     x = d_unit * sq3 * (k / 2 + j - 3 / 2) # + 1 # x - 2 * nc * d_unit
@@ -53,7 +53,7 @@ function to_cartesian(I::HexagonalIndex, d_unit) #to_cartesian(I::HexagonalIndex
     x, y
 end
 
-# Euclidean distance
+# Euclidean distance => utils
 function euclidean(I1::HexagonalIndex, I2::HexagonalIndex, d_unit)
     i1, j1, k1 = indices(I1)
     i2, j2, k2 = indices(I2)

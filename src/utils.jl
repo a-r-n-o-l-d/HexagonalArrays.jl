@@ -13,3 +13,5 @@ function hexvertices(x, y, d)
     (x + w / 2, y - d / 2),
     (x - w / 2, y - d / 2)
 end
+
+hexvertices(I, d) = hexvertices(to_cartesian(I, d)..., d)
