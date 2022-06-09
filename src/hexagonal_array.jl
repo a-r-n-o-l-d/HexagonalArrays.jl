@@ -46,3 +46,8 @@ end
 end
 
 Base.length(hi::HexagonalIndices) = length(hi.ci)
+
+Base.:(:)(I::HexagonalIndex, J::HexagonalIndex) = HexagonalIndices(CartesianIndices(_as_cartesian(I):_as_cartesian(J)))
+
+Base.:(:)(I::HexagonalIndex, S::HexagonalIndex, J::HexagonalIndex) = 
+    HexagonalIndices(CartesianIndices(_as_cartesian(I):_as_cartesian(S):_as_cartesian(J)))

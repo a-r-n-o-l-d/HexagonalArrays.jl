@@ -49,6 +49,8 @@ end
 
 Base.:(*)(I::HexagonalIndex, s::Int) = *(s::Int, I::HexagonalIndex)
 
+_as_cartesian(I) = CartesianIndex(Tuple(I))
+
 # Cartesian coordinates => utils
 function to_cartesian(I::HexagonalIndex, d_unit) #to_cartesian(I::HexagonalIndex, H::HexagonalArray)
     i, j, k = Tuple(I)
