@@ -29,3 +29,13 @@ function _replicate_inds(i, j, k, ex)
     HexagonalIndex(i, j, k)
 end
 
+struct Constant <: AbstractExtrapolation
+    A::HexagonalArray
+    value
+end
+
+@inline Base.getindex(ex::Constant, I::HexagonalIndex) =
+    _checkbounds(ex, I) ? (@inbounds ex.A[I]) : ex.value
+
+@inline Base.getindex(ex::Constant, inds::Int...) = 
+    _checkbounds(ex, inds...) ? (@inbounds ex.A[inds]) : ex.value

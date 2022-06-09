@@ -12,7 +12,7 @@ include("hexagonal_array.jl")
 export @neighborhood
 include("neighborhood.jl")
 
-export Replicate
+export Replicate, Constant
 include("extrapolation.jl")
 
 end
