@@ -65,4 +65,28 @@ function _periodic_inds(i, j, k, ex)
     end
     HexagonalIndex(i, j, k)
 end
-    
+
+struct Symmetric <: AbstractExtrapolation
+    A::HexagonalArray
+end
+
+@inline Base.getindex(ex::Symmetric, I::HexagonalIndex) =
+    _checkbounds(ex, I) ? (@inbounds ex.A[I]) : (@inbounds ex.A[_symmetric_inds(I.I..., ex)])
+
+@inline Base.getindex(ex::Symmetric, inds::Int...) = 
+    _checkbounds(ex, inds...) ? (@inbounds ex.A[inds]) : (@inbounds ex.A[_symmetric_inds(inds..., ex)])
+
+function _symmetric_inds(i, j, k, ex)
+    nr, nc, _ = size(ex.A)
+    if i < 1
+        i = 3 - i - k
+    elseif i > nr 
+        i = 2 * (nr + 1) - i - k
+    end
+    if j < 1
+        j = 3 - j - k
+    elseif j > nc
+        j = 2 * (nc + 1) - j - k
+    end
+    HexagonalIndex(i, j, k)
+end

@@ -17,4 +17,10 @@
     e = Constant(a, 42)
     @test e[0, 1, 1] == 42
     @test e[one(HexagonalIndex) - one(HexagonalIndex)] == 42
+
+    a = hexzeros(8, 4, 1)
+    a[2, 2, 1] = 42
+    e = Constant(a, 42)
+    @test e[0, 0, 1] == 42
+    @test e[one(HexagonalIndex) - one(HexagonalIndex)] == 42
 end
