@@ -39,3 +39,30 @@ end
 
 @inline Base.getindex(ex::Constant, inds::Int...) = 
     _checkbounds(ex, inds...) ? (@inbounds ex.A[inds]) : ex.value
+
+
+struct Periodic <: AbstractExtrapolation
+    A::HexagonalArray
+end
+
+@inline Base.getindex(ex::Periodic, I::HexagonalIndex) =
+    _checkbounds(ex, I) ? (@inbounds ex.A[I]) : (@inbounds ex.A[_periodic_inds(I.I..., ex)])
+
+@inline Base.getindex(ex::Periodic, inds::Int...) = 
+    _checkbounds(ex, inds...) ? (@inbounds ex.A[inds]) : (@inbounds ex.A[_periodic_inds(inds..., ex)])
+
+function _periodic_inds(i, j, k, ex)
+    nr, nc, _ = size(ex.A)
+    if i < 1
+        i = nr + i
+    elseif i > nr 
+        i = i - nr
+    end
+    if j < 1
+        j = nc - j
+    elseif j > nc
+        j = j - nc
+    end
+    HexagonalIndex(i, j, k)
+end
+    
