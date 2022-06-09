@@ -14,9 +14,9 @@ Base.@propagate_inbounds Base.getindex(A::HexagonalArray, I::HexagonalIndex) = A
 
 Base.@propagate_inbounds Base.setindex!(A::HexagonalArray, v, I::HexagonalIndex) = (A.data[I.I...] = v)
 
-Base.@propagate_inbounds Base.getindex(A::HexagonalArray, idxs::Int...) = A.data[idxs...]
+Base.@propagate_inbounds Base.getindex(A::HexagonalArray, inds::Int...) = A.data[inds...]
 
-Base.@propagate_inbounds Base.setindex!(A::HexagonalArray, v, idxs::Int...) = (A.data[idxs...] = v)
+Base.@propagate_inbounds Base.setindex!(A::HexagonalArray, v, inds::Int...) = (A.data[inds...] = v)
 
 hexzeros(T::Type, nrow, ncol, d_unit) = HexagonalArray(zeros(T, nrow, ncol, 2), d_unit)
 
