@@ -45,6 +45,6 @@ macro neighborhood(I, N, body)
     end
 end
 
-macro neighborhood(radius, N, body)
+macro cneighborhood(radius, N, body)
     :(@neighborhood(zero(HexagonalIndex), $radius, $N, $body))
 end
