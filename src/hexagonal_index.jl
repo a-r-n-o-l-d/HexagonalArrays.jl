@@ -4,15 +4,17 @@ end
 
 HexagonalIndex(i, j, k) = HexagonalIndex((i, j, k))
 
+HexagonalIndex(I::CartesianIndex{3}) = HexagonalIndex(Tuple(I))
+
 indices(I::HexagonalIndex) = I.I
 
 Base.zero(::HexagonalIndex) = HexagonalIndex(0, 0, 1)
 
 Base.zero(::Type{HexagonalIndex}) = HexagonalIndex(0, 0, 1)
 
-Base.one(::HexagonalIndex) = HexagonalIndex(1, 1, 1)
+Base.one(::HexagonalIndex) = HexagonalIndex(1, 1, 1) #HexagonalIndex(1, 1, 2)???
 
-Base.one(::Type{HexagonalIndex}) = HexagonalIndex(1, 1, 1)
+Base.one(::Type{HexagonalIndex}) = HexagonalIndex(1, 1, 1) #HexagonalIndex(1, 1, 2)???
 
 # Addition
 function Base.:+(I1::HexagonalIndex, I2::HexagonalIndex)
