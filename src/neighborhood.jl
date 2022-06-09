@@ -1,6 +1,6 @@
 macro neighborhood(I, radius, N, body)
     quote
-        local i, j, k = indices($(esc(I)))
+        local i, j, k = Tuple($(esc(I)))
         local Δj = $(esc(radius)) >> 1
         for oj in -Δj:Δj
             local Δi = $(esc(radius)) - abs(oj)

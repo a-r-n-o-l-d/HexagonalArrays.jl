@@ -1,5 +1,5 @@
 @testset "HexagonalIndex" begin
-    @test (1, 1, 1) == indices(one(HexagonalIndex))
+    @test (1, 1, 1) == Tuple(one(HexagonalIndex))
 
     @test one(HexagonalIndex) + one(HexagonalIndex) == 2 * one(HexagonalIndex)
 
