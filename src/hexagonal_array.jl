@@ -27,6 +27,7 @@ Base.@propagate_inbounds Base.getindex(A::HexagonalArray, inds::Int...) = A.data
 
 Base.@propagate_inbounds Base.setindex!(A::HexagonalArray, v, inds::Int...) = (A.data[inds...] = v)
 
+
 struct HexagonalIndices
     ci::CartesianIndices
 end
@@ -46,6 +47,10 @@ end
 end
 
 Base.length(hi::HexagonalIndices) = length(hi.ci)
+
+Base.first(hi::HexagonalIndices) = first(hi.ci)
+
+Base.last(hi::HexagonalIndices) = last(hi.ci)
 
 #_as_cartesian(I) = CartesianIndex(Tuple(I))
 
