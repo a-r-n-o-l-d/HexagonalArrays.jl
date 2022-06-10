@@ -21,7 +21,7 @@ Base.one(::HexagonalIndex) = HexagonalIndex(1, 1, 1)
 
 Base.one(::Type{HexagonalIndex}) = HexagonalIndex(1, 1, 1)
 
-Base.:(==)(I1::HexagonalIndex, I2::HexagonalIndex) = I1.I == I2.I
+Base.:(==)(I1::HexagonalIndex, I2::HexagonalIndex) = Tuple(I1) == Tuple(I2)
 
 # Addition
 function Base.:(+)(I1::HexagonalIndex, I2::HexagonalIndex)

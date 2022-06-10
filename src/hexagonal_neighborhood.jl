@@ -5,9 +5,11 @@ struct NeighborhoodIndex
     i
 end
 
-Base.@propagate_inbounds Base.getindex(A::HexagonalArray, I::NeighborhoodIndex) = A.data[I.I]
+Base.Tuple(I::NeighborhoodIndex) = Tuple(I.I)
 
-Base.@propagate_inbounds Base.setindex!(A::HexagonalArray, v, I::NeighborhoodIndex) = (A.data[I.I] = v)
+Base.@propagate_inbounds Base.getindex(A::HexagonalArray, I::NeighborhoodIndex) = harray(A)[Tuple(I)...]
+
+Base.@propagate_inbounds Base.setindex!(A::HexagonalArray, v, I::NeighborhoodIndex) = (harray(A)[Tuple(I)...] = v)
 
 # Extends function of HexagonalIndex
 # arithmetic operators
@@ -24,7 +26,7 @@ struct HexagonalNeighborhood{T} <: AbstractVector{T}
     radius
 end
 
-HexagonalNeighborhood(T::Type, radius) = HexagonalNeighborhood(Vector{Int}(undef, hexcount(radius)), radius)
+HexagonalNeighborhood(T::Type, radius) = HexagonalNeighborhood(Vector{Int}(undef, hcount(radius)), radius)
 
 HexagonalNeighborhood(A::HexagonalArray, radius) = HexagonalNeighborhood(eltype(A), radius)
 

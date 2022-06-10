@@ -1,12 +1,12 @@
 module HexagonalArrays
 
-export d_unit_area, hexcount, hexvertices
+export d_unit_area, hcount, hvertices
 include("utils.jl")
 
 export HexagonalIndex, to_cartesian, euclidean, HexagonalIndices
 include("hexagonal_index.jl")
 
-export HexagonalArray, hexdata, hexzeros, hexones
+export HexagonalArray, harray, hzeros, hones
 include("hexagonal_array.jl")
 
 export NeighborhoodIndex, HexagonalNeighborhood, @neighborhood

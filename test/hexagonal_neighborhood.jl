@@ -5,7 +5,7 @@ d = []
     push!(d, euclidean(N, HexagonalIndex(0, 0, 1), 1))
 end
 @test all(@. d <= radius)
-@test length(d) == hexcount(radius)
+@test length(d) == hcount(radius)
 
 function infunc(I, r)
     d = []
@@ -18,11 +18,11 @@ radius = 19
 I = HexagonalIndex(rand(1:10), rand(1:5), rand(1:2))
 d = infunc(I, radius)
 @test all(@. d <= radius)
-@test length(d) == hexcount(radius)
+@test length(d) == hcount(radius)
 
 d = []
 @neighborhood I neighbor begin
     push!(d, euclidean(neighbor, I, 1))
 end
 @test all(@. d <= 1)
-@test length(d) == hexcount(1)
+@test length(d) == hcount(1)

@@ -14,5 +14,7 @@ using Test
         include("hexagonal_neighborhood.jl")
     end
 
-    include("extrapolation.jl")
+    @testset "Extrapolation" begin
+        include("extrapolation.jl")
+    end
 end

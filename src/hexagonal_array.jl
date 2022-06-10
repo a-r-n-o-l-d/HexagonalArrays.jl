@@ -2,37 +2,37 @@
 # nrow, ncol
 
 struct HexagonalArray{T} <: AbstractArray{T,3}
-    data::Array{T,3}
+    array::Array{T,3}
     d_unit
     # CartesianAxes
 end
 
-hexdata(A::HexagonalArray) = A.data
+harray(A::HexagonalArray) = A.array
 
-hexzeros(T::Type, nrow, ncol, d_unit) = HexagonalArray(zeros(T, nrow, ncol, 2), d_unit)
+hzeros(T::Type, nrow, ncol, d_unit) = HexagonalArray(zeros(T, nrow, ncol, 2), d_unit)
 
-hexzeros(nrow, ncol, d_unit) = HexagonalArray(zeros(Float64, nrow, ncol, 2), d_unit)
+hzeros(nrow, ncol, d_unit) = HexagonalArray(zeros(Float64, nrow, ncol, 2), d_unit)
 
-hexones(T::Type, nrow, ncol, d_unit) = HexagonalArray(ones(T, nrow, ncol, 2), d_unit)
+hones(T::Type, nrow, ncol, d_unit) = HexagonalArray(ones(T, nrow, ncol, 2), d_unit)
 
-hexones(nrow, ncol, d_unit) = HexagonalArray(ones(Float64, nrow, ncol, 2), d_unit)
+hones(nrow, ncol, d_unit) = HexagonalArray(ones(Float64, nrow, ncol, 2), d_unit)
 
-Base.size(A::HexagonalArray) = size(A.data)
+Base.size(A::HexagonalArray) = size(harray(A))
 
-Base.@propagate_inbounds Base.getindex(A::HexagonalArray, I::HexagonalIndex) = A.data[I.I...]
+Base.@propagate_inbounds Base.getindex(A::HexagonalArray, I::HexagonalIndex) = harray(A)[I.I...]
 
-Base.@propagate_inbounds Base.setindex!(A::HexagonalArray, v, I::HexagonalIndex) = (A.data[I.I...] = v)
+Base.@propagate_inbounds Base.setindex!(A::HexagonalArray, v, I::HexagonalIndex) = (harray(A)[I.I...] = v)
 
-Base.@propagate_inbounds Base.getindex(A::HexagonalArray, inds::Int...) = A.data[inds...]
+Base.@propagate_inbounds Base.getindex(A::HexagonalArray, inds::Int...) = harray(A)[inds...]
 
-Base.@propagate_inbounds Base.setindex!(A::HexagonalArray, v, inds::Int...) = (A.data[inds...] = v)
+Base.@propagate_inbounds Base.setindex!(A::HexagonalArray, v, inds::Int...) = (harray(A)[inds...] = v)
 
 
 struct HexagonalIndices
     ci::CartesianIndices
 end
 
-HexagonalIndices(A::HexagonalArray) = HexagonalIndices(CartesianIndices(A.data))
+HexagonalIndices(A::HexagonalArray) = HexagonalIndices(CartesianIndices(harray(A)))
 
 @inline function Base.iterate(iter::HexagonalIndices)
     iterfirst = HexagonalIndex(first(iter.ci))
