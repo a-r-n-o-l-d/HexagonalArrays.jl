@@ -1,7 +1,7 @@
 #using Base: @propagate_inbounds
 
 struct HexagonalArray{T} <: AbstractArray{T,3} #HexagonalLattice???
-    data::AbstractArray{T,3}
+    data::Array{T,3}
     d_unit
     # CartesianAxes
 end
@@ -31,7 +31,7 @@ struct HexagonalIndices
     ci::CartesianIndices
 end
 
-HexagonalIndices(A::HexagonalArray) = HexagonalIndices(CartesianIndices(A))
+HexagonalIndices(A::HexagonalArray) = HexagonalIndices(CartesianIndices(A.data))
 
 @inline function Base.iterate(iter::HexagonalIndices)
     iterfirst = HexagonalIndex(first(iter.ci))

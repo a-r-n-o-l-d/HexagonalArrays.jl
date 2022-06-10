@@ -24,8 +24,9 @@ struct HexagonalNeighborhood{T} <: AbstractVector{T}
     radius
 end
 
-
 HexagonalNeighborhood(T::Type, radius) = HexagonalNeighborhood(Vector{Int}(undef, hexcount(radius)), radius)
+
+HexagonalNeighborhood(A::HexagonalArray, radius) = HexagonalNeighborhood(eltype(A), radius)
 
 neighborhood(N) = N.neighborhood
 

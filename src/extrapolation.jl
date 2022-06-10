@@ -1,6 +1,6 @@
 abstract type AbstractExtrapolation end
 
-_checkbounds(ex::AbstractExtrapolation, I::HexagonalIndex) = checkbounds(Bool, ex.A, I.I...)
+_checkbounds(ex::AbstractExtrapolation, I::HexagonalIndex) = checkbounds(Bool, ex.A.data, I.I...)
 
 _checkbounds(ex::AbstractExtrapolation, inds::Int...) = _checkbounds(ex, HexagonalIndex(inds))
 
