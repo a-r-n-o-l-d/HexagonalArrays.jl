@@ -52,6 +52,11 @@ Base.first(hi::HexagonalIndices) = first(hi.ci)
 
 Base.last(hi::HexagonalIndices) = last(hi.ci)
 
+# Definition of firstindex and getindex to enable parallelisation
+Base.firstindex(hi::HexagonalIndices) = 1
+
+Base.getindex(hi::HexagonalIndices, i) = getindex(hi.ci, i)
+
 function Base.:(:)(I::HexagonalIndex, J::HexagonalIndex)
     Ic = CartesianIndex(Tuple(I))
     Jc = CartesianIndex(Tuple(J))
