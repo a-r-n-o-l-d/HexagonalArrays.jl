@@ -2,7 +2,12 @@ struct HexagonalIndex #<: Base.AbstractCartesianIndex{3}
     I::NTuple{3,Int}
 end
 
-HexagonalIndex(i, j, k) = HexagonalIndex((i, j, k))
+function HexagonalIndex(i, j, k)
+    #k in 1:2 || throw(ArgumentError("Third index must be in 1:2.")) # seems to cause type unstability
+    HexagonalIndex((i, j, k))
+end
+
+#HexagonalIndex(I) = HexagonalIndex(I...)
 
 HexagonalIndex(I::CartesianIndex{3}) = HexagonalIndex(Tuple(I))
 
@@ -12,9 +17,9 @@ Base.zero(::HexagonalIndex) = HexagonalIndex(0, 0, 1)
 
 Base.zero(::Type{HexagonalIndex}) = HexagonalIndex(0, 0, 1)
 
-Base.one(::HexagonalIndex) = HexagonalIndex(1, 1, 1) #HexagonalIndex(1, 1, 2)???
+Base.one(::HexagonalIndex) = HexagonalIndex(1, 1, 1)
 
-Base.one(::Type{HexagonalIndex}) = HexagonalIndex(1, 1, 1) #HexagonalIndex(1, 1, 2)???
+Base.one(::Type{HexagonalIndex}) = HexagonalIndex(1, 1, 1)
 
 Base.:(==)(I1::HexagonalIndex, I2::HexagonalIndex) = I1.I == I2.I
 
@@ -47,8 +52,6 @@ function Base.:(*)(s::Int, I::HexagonalIndex)
 end
 
 Base.:(*)(I::HexagonalIndex, s::Int) = *(s::Int, I::HexagonalIndex)
-
-_as_cartesian(I) = CartesianIndex(Tuple(I))
 
 # Cartesian coordinates => utils
 function to_cartesian(I::HexagonalIndex, d_unit) #to_cartesian(I::HexagonalIndex, H::HexagonalArray)

@@ -1,10 +1,18 @@
 using HexagonalArrays
 using Test
 
-include("hexagonal_index.jl")
+@testset "HexagonalArrays" begin
+    @testset "HexagonalIndex" begin
+        include("hexagonal_index.jl")
+    end
 
-include("hexagonal_array.jl")
+    @testset "HexagonalArray" begin
+        include("hexagonal_array.jl")
+    end
 
-include("hexagonal_neighborhood.jl")
+    @testset "HexagonalNeighborhood" begin
+        include("hexagonal_neighborhood.jl")
+    end
 
-include("extrapolation.jl")
+    include("extrapolation.jl")
+end

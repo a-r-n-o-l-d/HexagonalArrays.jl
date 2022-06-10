@@ -1,12 +1,21 @@
 #using Base: @propagate_inbounds
+# nrow, ncol
 
-struct HexagonalArray{T} <: AbstractArray{T,3} #HexagonalLattice???
+struct HexagonalArray{T} <: AbstractArray{T,3}
     data::Array{T,3}
     d_unit
     # CartesianAxes
 end
 
 hexdata(A::HexagonalArray) = A.data
+
+hexzeros(T::Type, nrow, ncol, d_unit) = HexagonalArray(zeros(T, nrow, ncol, 2), d_unit)
+
+hexzeros(nrow, ncol, d_unit) = HexagonalArray(zeros(Float64, nrow, ncol, 2), d_unit)
+
+hexones(T::Type, nrow, ncol, d_unit) = HexagonalArray(ones(T, nrow, ncol, 2), d_unit)
+
+hexones(nrow, ncol, d_unit) = HexagonalArray(ones(Float64, nrow, ncol, 2), d_unit)
 
 Base.size(A::HexagonalArray) = size(A.data)
 
@@ -17,15 +26,6 @@ Base.@propagate_inbounds Base.setindex!(A::HexagonalArray, v, I::HexagonalIndex)
 Base.@propagate_inbounds Base.getindex(A::HexagonalArray, inds::Int...) = A.data[inds...]
 
 Base.@propagate_inbounds Base.setindex!(A::HexagonalArray, v, inds::Int...) = (A.data[inds...] = v)
-
-hexzeros(T::Type, nrow, ncol, d_unit) = HexagonalArray(zeros(T, nrow, ncol, 2), d_unit)
-
-hexzeros(nrow, ncol, d_unit) = HexagonalArray(zeros(Float64, nrow, ncol, 2), d_unit)
-
-hexones(T::Type, nrow, ncol, d_unit) = HexagonalArray(ones(T, nrow, ncol, 2), d_unit)
-
-hexones(nrow, ncol, d_unit) = HexagonalArray(ones(Float64, nrow, ncol, 2), d_unit)
-
 
 struct HexagonalIndices
     ci::CartesianIndices
@@ -47,7 +47,15 @@ end
 
 Base.length(hi::HexagonalIndices) = length(hi.ci)
 
-Base.:(:)(I::HexagonalIndex, J::HexagonalIndex) = HexagonalIndices(CartesianIndices(_as_cartesian(I):_as_cartesian(J)))
+#_as_cartesian(I) = CartesianIndex(Tuple(I))
 
-Base.:(:)(I::HexagonalIndex, S::HexagonalIndex, J::HexagonalIndex) = 
-    HexagonalIndices(CartesianIndices(_as_cartesian(I):_as_cartesian(S):_as_cartesian(J)))
+function Base.:(:)(I::HexagonalIndex, J::HexagonalIndex)
+    Ic = CartesianIndex(Tuple(I))
+    Jc = CartesianIndex(Tuple(J))
+    HexagonalIndices(CartesianIndices(Ic:Jc))
+end
+
+function Base.:(:)(I::HexagonalIndex, S::HexagonalIndex, J::HexagonalIndex)
+    rg = map((i,s,j) -> i:s:j, Tuple(I), Tuple(S), Tuple(J))
+    HexagonalIndices(CartesianIndices(rg))
+end
