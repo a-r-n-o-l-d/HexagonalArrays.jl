@@ -2,7 +2,7 @@
 radius = 2
 d = []
 @neighborhood HexagonalIndex(0, 0, 1) radius N begin 
-    push!(d, euclidean(N, HexagonalIndex(0, 0, 1), 1))
+    push!(d, heuclidean(N, HexagonalIndex(0, 0, 1), 1))
 end
 @test all(@. d <= radius)
 @test length(d) == hcount(radius)
@@ -10,7 +10,7 @@ end
 function infunc(I, r)
     d = []
     @neighborhood I r neighbor begin
-        push!(d, euclidean(neighbor, I, 1))
+        push!(d, heuclidean(neighbor, I, 1))
     end
     d
 end
@@ -22,7 +22,7 @@ d = infunc(I, radius)
 
 d = []
 @neighborhood I neighbor begin
-    push!(d, euclidean(neighbor, I, 1))
+    push!(d, heuclidean(neighbor, I, 1))
 end
 @test all(@. d <= 1)
 @test length(d) == hcount(1)

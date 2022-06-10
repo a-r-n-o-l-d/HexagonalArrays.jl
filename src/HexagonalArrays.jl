@@ -3,7 +3,7 @@ module HexagonalArrays
 export d_unit_area, hcount, hvertices
 include("utils.jl")
 
-export HexagonalIndex, to_cartesian, euclidean, HexagonalIndices
+export HexagonalIndex, to_cartesian, heuclidean, HexagonalIndices
 include("hexagonal_index.jl")
 
 export HexagonalArray, harray, hzeros, hones
