@@ -52,8 +52,6 @@ Base.first(hi::HexagonalIndices) = first(hi.ci)
 
 Base.last(hi::HexagonalIndices) = last(hi.ci)
 
-#_as_cartesian(I) = CartesianIndex(Tuple(I))
-
 function Base.:(:)(I::HexagonalIndex, J::HexagonalIndex)
     Ic = CartesianIndex(Tuple(I))
     Jc = CartesianIndex(Tuple(J))

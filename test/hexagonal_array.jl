@@ -24,7 +24,7 @@ a = HexagonalArray(rand(2, 2, 2), d_unit_area)
 a1, a2, a3 = axes(a)
 zz = zip(HexagonalIndices(a), HexagonalIndex.(Iterators.product(a1, a2, a3)))
 @test all(z -> first(z) - last(z) == zero(HexagonalIndex), zz)
-a = hexzeros(8, 4, 1)
+
 a = hexzeros(8, 4, 1)
 for I in HexagonalIndex(1, 1, 1):HexagonalIndex(2, 2, 1):HexagonalIndex(8, 4, 2)
     a[I] = 42
@@ -37,7 +37,16 @@ for I in HexagonalIndices(a)
         @test a[I] == 0
     end
 end
+
 for I in HexagonalIndex(1, 1, 1):HexagonalIndex(8, 4, 2)
+    a[I] = 1
+end
+@test sum(a) == prod(size(a))
+
+a = hexzeros(8, 4, 1)
+inds = HexagonalIndices(a)
+@test length(inds) == prod(size(a))
+for I in first(inds):last(inds)
     a[I] = 1
 end
 @test sum(a) == prod(size(a))
