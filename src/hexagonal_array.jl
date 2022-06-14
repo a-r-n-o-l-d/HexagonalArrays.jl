@@ -23,7 +23,7 @@ Base.@propagate_inbounds Base.getindex(A::HexagonalArray, I::HexagonalIndex) = h
 
 Base.@propagate_inbounds Base.setindex!(A::HexagonalArray, v, I::HexagonalIndex) = (harray(A)[I.I...] = v)
 
-Base.@propagate_inbounds Base.getindex(A::HexagonalArray, inds::Int...) = harray(A)[inds...]
+Base.@propagate_inbounds Base.getindex(A::HexagonalArray, inds::Int...) = harray(A)[inds...] #::Vararg{3, Int}
 
 Base.@propagate_inbounds Base.setindex!(A::HexagonalArray, v, inds::Int...) = (harray(A)[inds...] = v)
 
@@ -58,12 +58,13 @@ Base.firstindex(hi::HexagonalIndices) = 1
 Base.getindex(hi::HexagonalIndices, i) = getindex(hi.ci, i)
 
 function Base.:(:)(I::HexagonalIndex, J::HexagonalIndex)
-    Ic = CartesianIndex(Tuple(I))
-    Jc = CartesianIndex(Tuple(J))
-    HexagonalIndices(CartesianIndices(Ic:Jc))
+    #Ic = CartesianIndex(Tuple(I))
+    #Jc = CartesianIndex(Tuple(J))
+    rg = map((i, j) -> i:j, Tuple(I), Tuple(J))
+    HexagonalIndices(CartesianIndices(rg))
 end
 
 function Base.:(:)(I::HexagonalIndex, S::HexagonalIndex, J::HexagonalIndex)
-    rg = map((i,s,j) -> i:s:j, Tuple(I), Tuple(S), Tuple(J))
+    rg = map((i, s, j) -> i:s:j, Tuple(I), Tuple(S), Tuple(J))
     HexagonalIndices(CartesianIndices(rg))
 end

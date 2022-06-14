@@ -17,7 +17,7 @@ Base.zero(::HexagonalIndex) = HexagonalIndex(0, 0, 1)
 
 Base.zero(::Type{HexagonalIndex}) = HexagonalIndex(0, 0, 1)
 
-Base.one(::HexagonalIndex) = HexagonalIndex(1, 1, 1)
+Base.one(::HexagonalIndex) = HexagonalIndex(1, 1, 1) #oneunit
 
 Base.one(::Type{HexagonalIndex}) = HexagonalIndex(1, 1, 1)
 
