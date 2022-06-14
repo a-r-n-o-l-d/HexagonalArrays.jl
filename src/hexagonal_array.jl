@@ -28,6 +28,50 @@ Base.@propagate_inbounds Base.getindex(A::HexagonalArray, inds::Int...) = harray
 Base.@propagate_inbounds Base.setindex!(A::HexagonalArray, v, inds::Int...) = (harray(A)[inds...] = v)
 
 
+struct HexagonalIndices <: AbstractArray{HexagonalIndex,3}
+    rowrng
+    colrng
+    arng
+end
+
+HexagonalIndices(A::HexagonalArray) = HexagonalIndices(axes(A)...)
+
+@inline function Base.iterate(hi::HexagonalIndices)
+    I = first(hi)
+    I, I
+end
+
+@inline function Base.iterate(hi::HexagonalIndices, state)
+    valid, I = Base.IteratorsMD.__inc(state.I, (hi.rowrng, hi.colrng, hi.arng))
+    valid || return nothing
+    return HexagonalIndex(I...), HexagonalIndex(I...)
+end
+
+@inline Base.size(hi::HexagonalIndices) = (length(hi.rowrng), length(hi.colrng), length(hi.arng))
+
+@inline Base.length(hi::HexagonalIndices) = length(hi.rowrng) * length(hi.colrng) * length(hi.arng)
+
+@inline Base.first(hi::HexagonalIndices) = HexagonalIndex(first(hi.rowrng), first(hi.colrng), first(hi.arng))
+
+@inline Base.last(hi::HexagonalIndices) = HexagonalIndex(last(hi.rowrng), last(hi.colrng), last(hi.arng))
+
+@inline function Base.getindex(hi::HexagonalIndices, i, j, k)
+    @boundscheck checkbounds(hi, i, j, k)
+    @inbounds idx = (getindex(hi.rowrng, i), getindex(hi.rowrng, j), getindex(hi.arng, k))
+    HexagonalIndex(idx)
+end
+
+function Base.:(:)(I::HexagonalIndex, J::HexagonalIndex)
+    rg = map((i, j) -> i:j, Tuple(I), Tuple(J))
+    HexagonalIndices(rg...)
+end
+
+function Base.:(:)(I::HexagonalIndex, S::HexagonalIndex, J::HexagonalIndex)
+    rg = map((i, s, j) -> i:s:j, Tuple(I), Tuple(S), Tuple(J))
+    HexagonalIndices(rg...)
+end
+
+#=
 struct HexagonalIndices
     ci::CartesianIndices
 end
@@ -68,3 +112,4 @@ function Base.:(:)(I::HexagonalIndex, S::HexagonalIndex, J::HexagonalIndex)
     rg = map((i, s, j) -> i:s:j, Tuple(I), Tuple(S), Tuple(J))
     HexagonalIndices(CartesianIndices(rg))
 end
+=#
