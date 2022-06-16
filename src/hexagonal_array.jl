@@ -27,11 +27,10 @@ Base.@propagate_inbounds Base.getindex(A::HexagonalArray, inds::Int...) = harray
 
 Base.@propagate_inbounds Base.setindex!(A::HexagonalArray, v, inds::Int...) = (harray(A)[inds...] = v)
 
-
-struct HexagonalIndices <: AbstractArray{HexagonalIndex,3}
-    rowrng
-    colrng
-    arng
+struct HexagonalIndices{R<:OrdinalRange} <: AbstractArray{HexagonalIndex,3}
+    rowrng::R
+    colrng::R
+    arng::R
 end
 
 HexagonalIndices(A::HexagonalArray) = HexagonalIndices(axes(A)...)

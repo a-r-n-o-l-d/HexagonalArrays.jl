@@ -34,7 +34,7 @@ neighborhood(N) = N.neighborhood
 
 radius(N) = N.radius
 
-Base.size(n::HexagonalNeighborhood) = size(n.neighborhood)
+Base.size(N::HexagonalNeighborhood) = size(N.neighborhood)
 
 Base.@propagate_inbounds Base.getindex(N::HexagonalNeighborhood, i) = N.neighborhood[i]
 
