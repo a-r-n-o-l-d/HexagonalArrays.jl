@@ -1,3 +1,5 @@
+# move to package HexagonalExtrapolation
+
 abstract type AbstractExtrapolation end
 
 _checkbounds(ex::AbstractExtrapolation, I::HexagonalIndex) = checkbounds(Bool, harray(ex.A), I.I...)

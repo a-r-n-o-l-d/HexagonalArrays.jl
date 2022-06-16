@@ -1,3 +1,5 @@
+# move to package HexagonalNeighborhood
+
 # => macro hexcoord(neigborhood, I, body) :(@neighborhood(zero(HexagonalIndex), $neigborhood.radius, $N, $body)) end
 
 struct NeighborhoodIndex

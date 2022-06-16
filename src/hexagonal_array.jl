@@ -1,5 +1,7 @@
 #using Base: @propagate_inbounds
-# nrow, ncol
+# define nrow, ncol
+# move HexagonalIndices to its own file
+# check type stability
 
 struct HexagonalArray{T} <: AbstractArray{T,3}
     array::Array{T,3}
@@ -19,18 +21,18 @@ hones(nrow, ncol, d_unit) = HexagonalArray(ones(Float64, nrow, ncol, 2), d_unit)
 
 Base.size(A::HexagonalArray) = size(harray(A))
 
-Base.@propagate_inbounds Base.getindex(A::HexagonalArray, I::HexagonalIndex) = harray(A)[I.I...]
+Base.@propagate_inbounds Base.getindex(A::HexagonalArray, I::HexagonalIndex) = harray(A)[I.I...] #change to Tuple(I)
 
-Base.@propagate_inbounds Base.setindex!(A::HexagonalArray, v, I::HexagonalIndex) = (harray(A)[I.I...] = v)
+Base.@propagate_inbounds Base.setindex!(A::HexagonalArray, v, I::HexagonalIndex) = (harray(A)[I.I...] = v)#change to Tuple(I)
 
-Base.@propagate_inbounds Base.getindex(A::HexagonalArray, inds::Int...) = harray(A)[inds...] #::Vararg{3, Int}
+Base.@propagate_inbounds Base.getindex(A::HexagonalArray, inds::Int...) = harray(A)[inds...] #change to ::Vararg{3, Int}
 
-Base.@propagate_inbounds Base.setindex!(A::HexagonalArray, v, inds::Int...) = (harray(A)[inds...] = v)
+Base.@propagate_inbounds Base.setindex!(A::HexagonalArray, v, inds::Int...) = (harray(A)[inds...] = v) #change to ::Vararg{3, Int}
 
 struct HexagonalIndices{R<:OrdinalRange} <: AbstractArray{HexagonalIndex,3}
-    rowrng::R
-    colrng::R
-    arng::R
+    rowrng::R #rename to irng
+    colrng::R #rename to jrng
+    arng::R #rename to krng
 end
 
 HexagonalIndices(A::HexagonalArray) = HexagonalIndices(axes(A)...)
@@ -40,6 +42,7 @@ HexagonalIndices(A::HexagonalArray) = HexagonalIndices(axes(A)...)
     I, I
 end
 
+# avoid calling Base.IteratorsMD.__inc, make a hard copy here, in case of redifinition
 @inline function Base.iterate(hi::HexagonalIndices, state)
     valid, I = Base.IteratorsMD.__inc(state.I, (hi.rowrng, hi.colrng, hi.arng))
     valid || return nothing

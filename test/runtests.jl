@@ -1,6 +1,8 @@
 using HexagonalArrays
 using Test
 
+# Add support of Aqua.jl
+
 @testset "HexagonalArrays" begin
     @testset "HexagonalIndex" begin
         include("hexagonal_index.jl")
