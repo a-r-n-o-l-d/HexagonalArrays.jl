@@ -1,7 +1,7 @@
 name = "HexagonalArrays"
 uuid = "e7428160-d03f-46d2-b46d-0a3a5554cbe0"
 authors = ["Arnold"]
-version = "0.1.2"
+version = "0.1.3"
 
 [compat]
 julia = "1.7"
