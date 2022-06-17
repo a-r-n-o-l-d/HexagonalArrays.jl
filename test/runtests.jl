@@ -12,10 +12,6 @@ using Test
         include("hexagonal_array.jl")
     end
 
-    @testset "HexagonalNeighborhood" begin
-        include("hexagonal_neighborhood.jl")
-    end
-
     @testset "Extrapolation" begin
         include("extrapolation.jl")
     end
