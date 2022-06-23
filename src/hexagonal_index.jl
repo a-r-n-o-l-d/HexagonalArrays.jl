@@ -1,13 +1,28 @@
-struct HexagonalIndex #<: Base.AbstractCartesianIndex{3}
+"""
+    HexagonalIndex(i, j, k)   -> I
+    HexagonalIndex((i, j, k)) -> I
+
+Creates an hexagonal index `I` in Hexagonal Efficient Coordinate System
+([HECS](https://en.wikipedia.org/wiki/Hexagonal_Efficient_Coordinate_System)), 
+which is used for indexing an hexagonal array `A`.
+
+In HECS a point on an hexagonal grid represented by three coordinates 
+``(i, j, k) \\in \\mathbb{Z}^{*} \\times \\mathbb{Z}^{*} \\times \\{1, 2\\}``.
+You should note that the original HECS indexing is adapted to the Julia indexing 
+system (column major and 1-based indexing). Hence, ``i`` corresponds to the row 
+number, ``j`` to the column number and ``k`` to the column parity (i.e. when 
+``k = 1`` you access to an odd column, and when ``k = 2`` you access to an even 
+column).
+
+
+"""
+struct HexagonalIndex
     I::NTuple{3,Int}
 end
 
 function HexagonalIndex(i, j, k)
-    #k in 1:2 || throw(ArgumentError("Third index must be in 1:2.")) # seems to cause type unstability
-    HexagonalIndex((i, j, k))
+    HexagonalIndex((i, j, k)) #k in 1:2 || throw(ArgumentError("Third index must be in 1:2.")) # seems to cause type unstability
 end
-
-#HexagonalIndex(I) = HexagonalIndex(I...)
 
 HexagonalIndex(I::CartesianIndex{3}) = HexagonalIndex(Tuple(I))
 
