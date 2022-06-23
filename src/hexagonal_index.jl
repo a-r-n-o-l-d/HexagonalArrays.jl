@@ -25,7 +25,7 @@ The Julia operators `+`, `-` and `*` are extended for these four operations.
 
 # Examples
 
-```julia
+```jldoctest
 julia> I1 = HexagonalIndex(1, 2, 1)
 HexagonalIndex((1, 2, 1))
 
