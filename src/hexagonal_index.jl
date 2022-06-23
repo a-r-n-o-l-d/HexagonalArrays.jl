@@ -100,8 +100,6 @@ Base.:(*)(I::HexagonalIndex, s::Int) = *(s::Int, I::HexagonalIndex)
 Return the cartesian coordinates `(x, y)` of the hexagonal index `I`. The 
 upper-left hexagon of the hexagonal grid is assumed to have cartesian 
 coordinates `(0,0)`. `unitd` is the unit distance between two adjacent hexagons.
-
-
 """
 function to_cartesian(I::HexagonalIndex, unitd) #to_cartesian(I::HexagonalIndex, H::HexagonalArray)
     i, j, k = Tuple(I)
@@ -111,7 +109,11 @@ function to_cartesian(I::HexagonalIndex, unitd) #to_cartesian(I::HexagonalIndex,
 end
 
 """
+    heuclidean(I1, I2, unitd)
 
+Return the euclidean distance between two hexagonal indices `I1` and `I2`.
+
+See also [`to_cartesian`](@ref)
 """
 function heuclidean(I1::HexagonalIndex, I2::HexagonalIndex, unitd)
     i1, j1, k1 = Tuple(I1)
