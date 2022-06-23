@@ -14,7 +14,14 @@ number, ``j`` to the column number and ``k`` to the column parity (i.e. when
 ``k = 1`` you access to an odd column, and when ``k = 2`` you access to an even 
 column).
 
+In HECS space four operators are defined for vector arithmetic :
 
+- addition ``I_1 + I_2``
+- negation ``-I``
+- subtraction ``I_1 - I_2 = I_1 + (-I_2)``
+- scalar multiplication ``s * I, s \\in \\mathbb{N}`` and ``-s * I = s * (-I)``
+
+The Julia operators `+`, `-` and `*` are overloaded for these four operations.
 """
 struct HexagonalIndex
     I::NTuple{3,Int}
