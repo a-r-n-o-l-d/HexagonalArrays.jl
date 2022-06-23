@@ -21,7 +21,26 @@ In HECS space four operators are defined for vector arithmetic :
 - subtraction ``I_1 - I_2 = I_1 + (-I_2)``
 - scalar multiplication ``s * I, s \\in \\mathbb{N}`` and ``-s * I = s * (-I)``
 
-The Julia operators `+`, `-` and `*` are overloaded for these four operations.
+The Julia operators `+`, `-` and `*` are extended for these four operations.
+
+# Examples
+
+```julia
+julia> I1 = HexagonalIndex(1, 2, 1)
+HexagonalIndex((1, 2, 1))
+
+julia> I2 = HexagonalIndex(3, 1, 1)
+HexagonalIndex((3, 1, 1))
+
+julia> I1 + I2
+HexagonalIndex((4, 3, 1))
+
+julia> I1 - I2
+HexagonalIndex((-2, 1, 1))
+
+julia> 3 * I1
+HexagonalIndex((3, 6, 1))
+```
 """
 struct HexagonalIndex
     I::NTuple{3,Int}
