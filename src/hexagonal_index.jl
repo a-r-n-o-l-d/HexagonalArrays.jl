@@ -113,7 +113,7 @@ end
 
 Return the euclidean distance between two hexagonal indices `I1` and `I2`.
 
-See also [`to_cartesian`](@ref)
+See also [`to_cartesian`](@ref).
 """
 function heuclidean(I1::HexagonalIndex, I2::HexagonalIndex, unitd)
     i1, j1, k1 = Tuple(I1)
