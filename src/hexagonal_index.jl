@@ -2,11 +2,11 @@
     HexagonalIndex(i, j, k)   -> I
     HexagonalIndex((i, j, k)) -> I
 
-Creates an hexagonal index `I` in Hexagonal Efficient Coordinate System
+Create an hexagonal index `I` in Hexagonal Efficient Coordinate System
 ([HECS](https://en.wikipedia.org/wiki/Hexagonal_Efficient_Coordinate_System)), 
 which is used for indexing an hexagonal array `A`.
 
-In HECS a point on an hexagonal grid represented by three coordinates 
+In HECS a point on an hexagonal grid is represented by three coordinates 
 ``(i, j, k) \\in \\mathbb{Z}^{*} \\times \\mathbb{Z}^{*} \\times \\{1, 2\\}``.
 You should note that the original HECS indexing is adapted to the Julia indexing 
 system (column major and 1-based indexing). Hence, ``i`` corresponds to the row 
@@ -94,18 +94,28 @@ end
 
 Base.:(*)(I::HexagonalIndex, s::Int) = *(s::Int, I::HexagonalIndex)
 
-# Cartesian coordinates => utils
-function to_cartesian(I::HexagonalIndex, d_unit) #to_cartesian(I::HexagonalIndex, H::HexagonalArray)
+"""
+    to_cartesian(I, unitd) -> (x, y)
+
+Return the cartesian coordinates `(x, y)` of the hexagonal index `I`. The 
+upper-left hexagon of the hexagonal grid is assumed to have cartesian 
+coordinates `(0,0)`. `unitd` is the unit distance between two adjacent hexagons.
+
+
+"""
+function to_cartesian(I::HexagonalIndex, unitd) #to_cartesian(I::HexagonalIndex, H::HexagonalArray)
     i, j, k = Tuple(I)
-    x = d_unit * sq3 * (k / 2 + j - 3 / 2) # + 1 # x - 2 * nc * d_unit
-    y = d_unit * (k / 2 + i - 3 / 2)       # + 1 # (nr * d_unit + 0.5) - y 
+    x = unitd * sq3 * (k / 2 + j - 3 / 2) # + 1 # x - 2 * nc * d_unit
+    y = unitd * (k / 2 + i - 3 / 2)       # + 1 # (nr * d_unit + 0.5) - y 
     x, y
 end
 
-# Euclidean distance => utils
-function heuclidean(I1::HexagonalIndex, I2::HexagonalIndex, d_unit)
+"""
+
+"""
+function heuclidean(I1::HexagonalIndex, I2::HexagonalIndex, unitd)
     i1, j1, k1 = Tuple(I1)
     i2, j2, k2 = Tuple(I2)
     k = (k1 - k2) / 2
-    d_unit * sqrt(3 * (k + j1 - j2)^2 + (k + i1 - i2)^2)
+    unitd * sqrt(3 * (k + j1 - j2)^2 + (k + i1 - i2)^2)
 end
